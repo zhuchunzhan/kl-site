@@ -52,6 +52,14 @@
   </function>
   
   <function>
+    <description>获取栏目的第一个文章</description>
+    <name>getCategoryFirstArticle</name>
+    <function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+    <function-signature>com.thinkgem.jeesite.modules.cms.entity.Article getCategoryFirstArticle(java.lang.String)</function-signature>
+    <example>${fnc:getCategoryFirstArticle(categoryId)}</example>  
+  </function>
+  
+  <function>
     <description>获得栏目列表</description>
     <name>getCategoryList</name>
     <function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>

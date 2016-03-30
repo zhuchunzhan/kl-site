@@ -109,7 +109,7 @@ public class Site extends DataEntity<Site> {
 	 * 获取默认站点ID
 	 */
 	public static String defaultSiteId(){
-		return "1";
+		return "kl-site";
 	}
 	
 	/**
