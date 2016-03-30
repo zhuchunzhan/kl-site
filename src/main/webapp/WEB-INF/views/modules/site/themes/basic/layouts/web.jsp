@@ -40,18 +40,31 @@
 						<c:forEach items="${fnc:getMainNavList(site.id)}" var="category"
 							varStatus="status">
 							<c:set var="menuCategoryId" value=",${category.id}," />
-							<li
-								class="${requestScope.category.id eq category.id||fn:indexOf(requestScope.category.parentIds,menuCategoryId) ge 1?'active':''}">
-								<a href="${ctx}/${category.id}${fns:getUrlSuffix()}"><span>${category.name}</span></a>
-								<ul class="dropdown-menu">
-									<c:forEach
-										items="${fnc:getCategoryList(site.id,category.id,-1,null)}"
-										var="subCategory">
-										<li><a href="${subCategory.url}"
-											target="${subCategory.target}">${subCategory.name}</a></li>
-									</c:forEach>
-								</ul>
-							</li>
+							<c:set var="subCategorys" property=""
+								value="${fnc:getCategoryList(site.id,category.id,-1,null)}" />
+							<c:choose>
+								<c:when test="${subCategorys.size() > 0}">
+									<li
+										class="${requestScope.category.id eq category.id||fn:indexOf(requestScope.category.parentIds,menuCategoryId) ge 1?'active':''} dropdown">
+										<a href="${ctx}/${category.id}${fns:getUrlSuffix()}"
+										class="dropdown-toggle" data-toggle="dropdown"><span>${category.name}</span>
+											<b class="caret"></b> </a>
+										<ul class="dropdown-menu">
+											<c:forEach items="${subCategorys}" var="subCategory">
+												<li><a href="${subCategory.url}"
+													target="${subCategory.target}">${subCategory.name}</a></li>
+											</c:forEach>
+										</ul>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li
+										class="${requestScope.category.id eq category.id||fn:indexOf(requestScope.category.parentIds,menuCategoryId) ge 1?'active':''}">
+										<a href="${ctx}/${category.id}${fns:getUrlSuffix()}"><span>${category.name}</span>
+									</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 						<li id="themeSwitch" class="dropdown"><a
 							class="dropdown-toggle" data-toggle="dropdown" href="#"
@@ -84,7 +97,8 @@
 				<a href="${ctx}/guestbook" target="_blank">公共留言</a> | <a
 					href="${ctx}/search" target="_blank">全站搜索</a> | <a
 					href="${ctx}/map-${site.id}${fns:getUrlSuffix()}" target="_blank">站点地图</a>
-				| <a href="mailto:thinkgem@163.com">技术支持</a><%--  | <a
+				| <a href="mailto:thinkgem@163.com">技术支持</a>
+				<%--  | <a
 					href="${pageContext.request.contextPath}${fns:getAdminPath()}"
 					target="_blank">后台管理</a> --%>
 			</div>
